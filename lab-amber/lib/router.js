@@ -5,6 +5,7 @@ const url = require('url');
 const queryString = require('querystring');
 const storage = require('./storage.js');
 const bodyParser = require('./bodyParser.js');
+const api = require('../api/projectApi.js');
 
 class Router {
   constructor() {
@@ -34,69 +35,51 @@ class Router {
 
   route(req, res) {
     const method = req.method;
-    req.url = url.parse(req.url);
-    req.url.query = queryString.parse(req.url.query);
     if (method === 'GET') {
-      if (req.url.pathname === '/api/projects') {
-        req.on('error', err => {
-          console.error(err);
-        });
-        
-        if (req.url.query.id) {
-          let id = req.url.query.id;
-          let project = storage.get(id);
-          res.writeHead(200, {'Content-Type': 'application/json'});
-          res.write(JSON.stringify(project));
-          res.end();
-        } else {
-          let projects = storage.getAll();
-          res.writeHead(200, {'Content-Type': 'application/json'});
-          res.write(JSON.stringify(projects));
-          res.end();
-        }
-      } else {
-        let message = 'error. invalid request\ntry localhost:3000/api/projects with a proper text query';
-        res.writeHead(400, { 'Content-Type': 'text/plain' });
-        res.write(message);
-        res.end();
-      }
+      api.getProjects(req, res);
+    } else if (method === 'POST') {
+      api.createProject(req, res);
+    } else if (method === 'PUT') {
+      console.log('method', method);
+      api.updateProject(req, res);
     }
+  }
 
-    if (method === 'PUT' || method === 'POST') {
-      if (req.url.pathname === '/api/projects') {
-        bodyParser(req, (err, body) => {
-          try {
-            body = JSON.parse(body);
-            console.log('parsed body', body);
-            if (method === 'PUT') {
-              if (body.id) {
-                let project = storage.update(body.id, body.name, body.description, body.url);
-                res.writeHead(200, {'Content-Type': 'application/json'});
-                res.write(JSON.stringify(project));
-                res.end();
-              } else {
-                let message = JSON.stringify({
-                  error: 'invalid request: id query required',
-                });
-                res.writeHead(400, { 'Content-Type': 'application/json' });
-                res.write(JSON.stringify(message));
-                res.end();
-              }
-            }
+    // if (method === 'PUT' || method === 'POST') {
+    //   if (req.url.pathname === '/api/projects') {
+    //     bodyParser(req, (err, body) => {
+    //       try {
+    //         body = JSON.parse(body);
+    //         console.log('parsed body', body);
+    //         if (method === 'PUT') {
+    //           if (body.id) {
+    //             let project = storage.update(body.id, body.name, body.description, body.url);
+    //             res.writeHead(200, {'Content-Type': 'application/json'});
+    //             res.write(JSON.stringify(project));
+    //             res.end();
+    //           } else {
+    //             let message = JSON.stringify({
+    //               error: 'invalid request: id query required',
+    //             });
+    //             res.writeHead(400, { 'Content-Type': 'application/json' });
+    //             res.write(JSON.stringify(message));
+    //             res.end();
+    //           }
+    //         }
             // if (method === 'POST') {
             //   let project = storage.save(body.name, body.description, body.url);
             //   res.writeHead(200, {'Content-Type': 'application/json'});
             //   res.write(JSON.stringify(project));
             //   res.end();
             // }
-          } catch (err) {
-            console.error(err);
-          }
-        });
-      }
-    }
+    //       } catch (err) {
+    //         console.error(err);
+    //       }
+    //     });
+    //   }
+    // }
 
-  }
+  // }
 
   tryRoute(req, res) {
     try {
