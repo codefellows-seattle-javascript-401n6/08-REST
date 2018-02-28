@@ -1,0 +1,22 @@
+{
+  "name": "lab-alica",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^1.15.1",
+    "superagent": "^3.8.2",
+    "uuid": "^3.2.1"
+  }
+}
