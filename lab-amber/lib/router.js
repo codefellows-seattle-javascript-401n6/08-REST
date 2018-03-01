@@ -5,7 +5,7 @@ const url = require('url');
 const queryString = require('querystring');
 const storage = require('./storage.js');
 const bodyParser = require('./bodyParser.js');
-const api = require('../api/projectApi.js');
+const api = require('../api/project.js');
 
 class Router {
   constructor() {
@@ -35,51 +35,18 @@ class Router {
 
   route(req, res) {
     const method = req.method;
+    let pathname = url.parse(req.url).pathname;
     if (method === 'GET') {
-      api.getProjects(req, res);
-    } else if (method === 'POST') {
-      api.createProject(req, res);
-    } else if (method === 'PUT') {
-      console.log('method', method);
-      api.updateProject(req, res);
-    }
-  }
-
-    // if (method === 'PUT' || method === 'POST') {
-    //   if (req.url.pathname === '/api/projects') {
-    //     bodyParser(req, (err, body) => {
-    //       try {
-    //         body = JSON.parse(body);
-    //         console.log('parsed body', body);
-    //         if (method === 'PUT') {
-    //           if (body.id) {
-    //             let project = storage.update(body.id, body.name, body.description, body.url);
-    //             res.writeHead(200, {'Content-Type': 'application/json'});
-    //             res.write(JSON.stringify(project));
-    //             res.end();
-    //           } else {
-    //             let message = JSON.stringify({
-    //               error: 'invalid request: id query required',
-    //             });
-    //             res.writeHead(400, { 'Content-Type': 'application/json' });
-    //             res.write(JSON.stringify(message));
-    //             res.end();
-    //           }
-    //         }
-            // if (method === 'POST') {
-            //   let project = storage.save(body.name, body.description, body.url);
-            //   res.writeHead(200, {'Content-Type': 'application/json'});
-            //   res.write(JSON.stringify(project));
-            //   res.end();
-            // }
-    //       } catch (err) {
-    //         console.error(err);
-    //       }
-    //     });
-    //   }
+      let currentRoute = this.routes[method][pathname];
+      currentRoute(req, res);
+    } 
+    // else if (method === 'POST') {
+    //   api.createProject(req, res);
+    // } else if (method === 'PUT') {
+    //   console.log('method', method);
+    //   api.updateProject(req, res);
     // }
-
-  // }
+  }
 
   tryRoute(req, res) {
     try {

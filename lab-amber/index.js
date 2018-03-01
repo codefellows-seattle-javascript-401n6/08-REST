@@ -1,14 +1,12 @@
 'use strict';
 
 const http = require('http');
-const url = require('url');
-const querystring = require('querystring');
 const Router = require('./lib/router.js');
-
-const projectAPI = require('./api/projectApi.js');
+const api = require('./api/project.js');
 
 const router = new Router();
-router.get('projects', projectAPI.getProjects);
+router.get('/api/projects', api.getProjects);
+// router.get('/api/projects?id=', api.createProject);
 
 const server = http.createServer((req, res) => {
   return router.tryRoute(req, res);
