@@ -20,9 +20,9 @@ class Router {
     this.routes.GET[path] = callback;
   }
   
-  // post(path, callback) {
-  //   this.routes.POST[path] = callback;
-  // }
+  post(path, callback) {
+    this.routes.POST[path] = callback;
+  }
 
 //   put(path, callback) {
 //     this.routes.PUT[path] = callback;
@@ -33,7 +33,6 @@ class Router {
   }
 
   route(req, res) {
-    console.log('routes', this.routes);
     const method = req.method;
     urlParser(req).then( url => {
       let currentRoute = this.routes[method][url.pathname];

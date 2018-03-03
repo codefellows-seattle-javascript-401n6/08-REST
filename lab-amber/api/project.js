@@ -39,30 +39,30 @@ function getProjects(req, res) {
   }
 }
 
-// function createProject(req, res) {
-  // bodyParser(req).then(
-  //   (body) => {
-  //     console.log('createProject body1', body);
-  //     try {
-  //       console.log('createProject body', body);
-  //       body = JSON.parse(body);
-  //       let project = new Project(body.name, body.description, body.url);
-  //       let projectID = project.id;
-  //       storage.save(project);
-  //       let savedProject = storage.get(projectID);
-  //       res.writeHead(200, { 'Content-Type': 'text/plain' });
-  //       res.write(`project saved successfully at id: ${projectID}`);
-  //       res.end();
-  //     } catch (err) {
-  //       let message = JSON.stringify({
-  //         error: err,
-  //       });
-  //       res.writeHead(400, { 'Content-Type': 'application/json' });
-  //       res.write(JSON.stringify(message));
-  //       res.end();
-  //     }
-  //   }).catch((err) => console.error(err));
-// }
+function createProject(req, res) {
+  bodyParser(req).then(
+    (body) => {
+      console.log('createProject body1', body);
+      try {
+        console.log('createProject body', body);
+        body = JSON.parse(body);
+        let project = new Project(body.name, body.description, body.url);
+        let projectID = project.id;
+        storage.save(project);
+        let savedProject = storage.get(projectID);
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.write(`project saved successfully at id: ${projectID}`);
+        res.end();
+      } catch (err) {
+        let message = JSON.stringify({
+          error: err,
+        });
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify(message));
+        res.end();
+      }
+    }).catch((err) => console.error(err));
+}
 
 // // function updateProject(req, res) {
 // //   req.url = url.parse(req.url);
@@ -129,7 +129,7 @@ function removeProject(req, res) {
 
 module.exports = {
   getProjects,
-  removeProject
-  // createProject,
+  createProject,
+  removeProject,
   // updateProject,
 };

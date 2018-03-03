@@ -9,7 +9,7 @@ const api = require('./api/project.js');
 
 const router = new Router();
 router.get('/api/projects', api.getProjects);
-// router.post('/api/projects', api.createProject);
+router.post('/api/projects', api.createProject);
 router.remove('/api/projects', api.removeProject);
 
 const server = http.createServer((req, res) => {
