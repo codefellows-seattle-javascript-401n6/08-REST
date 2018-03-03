@@ -38,7 +38,10 @@ class Router {
     urlParser(req).then( url => {
       let currentRoute = this.routes[method][url.pathname];
       if(!currentRoute) {
-        throw `404 Not Found: ${method} ${url.pathname}`
+        let message = 'error. invalid request\ntry localhost:3000/api/projects';
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.write(message);
+        res.end();
       }
       currentRoute(req, res);
     }).catch(err => console.error(err));

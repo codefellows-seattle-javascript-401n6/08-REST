@@ -19,12 +19,25 @@ function getProjects(req, res) {
     req.on('error', err => {
       console.error(err);
     });
+    if (req.url.query.id === '') {
+      let message = `Please provide a valid id`;
+        res.writeHead(400, { 'Content-Type': 'text/plain' });
+        res.write(message);
+        res.end();
+    }
     if (req.url.query.id) {
       let id = req.url.query.id;
       let project = storage.get(id);
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.write(JSON.stringify(project));
-      res.end();
+      if (project === undefined) {
+        let message = `Project at ${id} Not Found`;
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.write(message);
+        res.end();
+      } else {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify(project));
+        res.end();
+      }
     } else {
       let projects = storage.getAll();
       res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -44,12 +57,12 @@ function createProject(req, res) {
     (body) => {
       try {
         body = JSON.parse(body);
-        let project = new Project(body.name, body.description, body.url);
+        let project = new Project(body.name, body.description, body.link);
         let projectID = project.id;
         storage.save(project);
         let savedProject = storage.get(projectID);
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
-        res.write(`project saved successfully at id: ${projectID}`);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify(savedProject));
         res.end();
       } catch (err) {
         let message = JSON.stringify({
