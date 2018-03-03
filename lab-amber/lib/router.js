@@ -24,15 +24,16 @@ class Router {
     this.routes.POST[path] = callback;
   }
 
-//   put(path, callback) {
-//     this.routes.PUT[path] = callback;
-//   }
+  put(path, callback) {
+    this.routes.PUT[path] = callback;
+  }
 
   remove(path, callback) {
     this.routes.DELETE[path] = callback;
   }
 
   route(req, res) {
+    console.log('req text', req.text);
     const method = req.method;
     urlParser(req).then( url => {
       let currentRoute = this.routes[method][url.pathname];

@@ -9,7 +9,6 @@ function bodyParser(req) {
     console.log('***in bodyparser promise');
     let body = '';
     req.on('data', (buf) => {
-      console.log('*data*', buf);
       body += buf.toString();
     });
     req.on('end', () => {

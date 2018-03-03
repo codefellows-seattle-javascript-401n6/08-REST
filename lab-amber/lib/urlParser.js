@@ -9,14 +9,7 @@ function urlParser(req) {
     let parsedURL = {};
     parsedURL.pathname = url.parse(req.url).pathname;
     parsedURL.queries = queryString.parse(req.url.query);
-    req.on('data', (buf) => {
-    });
-    req.on('end', (buf) => {
-      resolve(parsedURL);
-    });
-    req.on('error', (error) => {
-      reject(error);
-    });
+    resolve(parsedURL);
   });
 }
 

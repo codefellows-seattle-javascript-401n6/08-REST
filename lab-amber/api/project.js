@@ -42,9 +42,7 @@ function getProjects(req, res) {
 function createProject(req, res) {
   bodyParser(req).then(
     (body) => {
-      console.log('createProject body1', body);
       try {
-        console.log('createProject body', body);
         body = JSON.parse(body);
         let project = new Project(body.name, body.description, body.url);
         let projectID = project.id;
@@ -64,40 +62,35 @@ function createProject(req, res) {
     }).catch((err) => console.error(err));
 }
 
-// // function updateProject(req, res) {
-// //   req.url = url.parse(req.url);
-// //   bodyParser(req, (err, body) => {
-// //     body = JSON.parse(body);
-// //     try {
-// //       let name = body.name;
-// //       let description = body.description;
-// //       let url = body.url;
-// //       if (body.id !== undefined) {
-// //         let id = body.id;
-// //         let project = storage.update(id, name, description, url);
-// //         res.writeHead(200, {
-// //           'Content-Type': 'text/plain'
-// //         });
-// //         res.write(`project update successful at id ${project.id}`);
-// //         res.end();
-// //       } else {
-// //         let message = JSON.stringify({
-// //           error: 'invalid request:',
-// //         });
-// //         res.writeHead(400, { 'Content-Type': 'application/json' });
-// //         res.write(message);
-// //         res.end();
-// //       }
-// //     } catch (error) {
-// //       let message = JSON.stringify({
-// //         error: 'invalid request: body required',
-// //       });
-// //       res.writeHead(400, { 'Content-Type': 'application/json' });
-// //       res.write(message);
-// //       res.end();
-// //     }
-// //   });
-// // }
+function updateProject(req, res) {
+  req.url = url.parse(req.url);
+  bodyParser(req).then(
+    (body) => {
+      try {
+        body = JSON.parse(body);
+        let name = body.name;
+        let description = body.description;
+        let url = body.url;
+        if (body.id !== undefined) {
+          let id = body.id;
+          let project = storage.update(id, name, description, url);
+          res.writeHead(200, {
+            'Content-Type': 'text/plain'
+          });
+          res.write(`project update successful at id ${project.id}`);
+          res.end();
+        }
+      } catch (err) {
+        let message = JSON.stringify({
+          error: 'invalid request: body required',
+        });
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.write(message);
+        res.end();
+      }
+    }
+  );
+}
 
 function removeProject(req, res) {
   req.url = url.parse(req.url);
@@ -131,5 +124,5 @@ module.exports = {
   getProjects,
   createProject,
   removeProject,
-  // updateProject,
+  updateProject,
 };
