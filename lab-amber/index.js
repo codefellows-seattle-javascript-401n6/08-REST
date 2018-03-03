@@ -1,6 +1,9 @@
 'use strict';
 
 const http = require('http');
+const url = require('url');
+const queryString = require('querystring');
+
 const Router = require('./lib/router.js');
 const api = require('./api/project.js');
 
