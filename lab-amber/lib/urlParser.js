@@ -5,7 +5,7 @@ const url = require('url');
 const queryString = require('querystring');
 
 function urlParser(req) {
-  let promise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     let parsedURL = {};
     parsedURL.pathname = url.parse(req.url).pathname;
     parsedURL.queries = queryString.parse(req.url.query);
@@ -18,7 +18,6 @@ function urlParser(req) {
       reject(error);
     });
   });
-  return promise;
 }
 
 module.exports = urlParser;

@@ -9,7 +9,8 @@ const api = require('./api/project.js');
 
 const router = new Router();
 router.get('/api/projects', api.getProjects);
-// router.get('/api/projects?id=', api.createProject);
+// router.post('/api/projects', api.createProject);
+router.remove('/api/projects', api.removeProject);
 
 const server = http.createServer((req, res) => {
   return router.tryRoute(req, res);

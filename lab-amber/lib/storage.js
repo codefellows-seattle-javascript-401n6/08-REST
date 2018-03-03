@@ -46,7 +46,7 @@ function update(id, name, description, url) {
 function remove(id) {
   let project = get(id);
   delete PROJECTS[id];
-  return book;
+  return project;
 }
 
 module.exports = {

@@ -4,9 +4,7 @@ const url = require('url');
 const queryString = require('querystring');
 
 const urlParser = require('./urlParser.js');
-// const storage = require('./storage.js');
-// const bodyParser = require('./bodyParser.js');
-// const api = require('../api/project.js');
+
 
 class Router {
   constructor() {
@@ -22,27 +20,28 @@ class Router {
     this.routes.GET[path] = callback;
   }
   
-//   post(path, callback) {
-//     this.routes.POST[path] = callback;
-//   }
+  // post(path, callback) {
+  //   this.routes.POST[path] = callback;
+  // }
 
 //   put(path, callback) {
 //     this.routes.PUT[path] = callback;
 //   }
 
-//   delete(path, callback) {
-//     this.routes.DELETE[path] = callback;
-//   }
+  remove(path, callback) {
+    this.routes.DELETE[path] = callback;
+  }
 
   route(req, res) {
+    console.log('routes', this.routes);
     const method = req.method;
     urlParser(req).then( url => {
       let currentRoute = this.routes[method][url.pathname];
       if(!currentRoute) {
-        throw `404 Not Found: ${method} ${pathname}`
+        throw `404 Not Found: ${method} ${url.pathname}`
       }
       currentRoute(req, res);
-    });
+    }).catch(err => console.error(err));
   }
 
   tryRoute(req, res) {
