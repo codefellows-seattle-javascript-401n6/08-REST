@@ -61,7 +61,6 @@ describe('Server tests', () => {
     .set('Content-Type', 'application/json')
     .send(JSON.stringify(newProject))
     .end((err, res) => {
-      console.log('res body', res.body);
       expect(res.body.name).toEqual(newProject.name);
       expect(res.body.description).toEqual(newProject.description);
       expect(res.body.link).toEqual(newProject.link);

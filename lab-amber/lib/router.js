@@ -33,7 +33,6 @@ class Router {
   }
 
   route(req, res) {
-    console.log('req text', req.text);
     const method = req.method;
     urlParser(req).then( url => {
       let currentRoute = this.routes[method][url.pathname];
@@ -51,7 +50,7 @@ class Router {
     try {
       return this.route(req, res);
     } catch (error) {
-      console.log('ERROR:', error);
+      console.error('ERROR:', error);
       let code = 500;
       if (error && error.substr) {
         let status = error.substr(0,3);
