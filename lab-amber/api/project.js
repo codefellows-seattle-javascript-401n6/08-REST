@@ -81,6 +81,7 @@ function updateProject(req, res) {
     (body) => {
       try {
         body = JSON.parse(body);
+        console.log('body', body);
         let name = body.name;
         let description = body.description;
         let url = body.url;

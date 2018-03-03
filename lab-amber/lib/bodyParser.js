@@ -6,7 +6,6 @@ const queryString = require('querystring');
 
 function bodyParser(req) {
   return new Promise((resolve, reject) => {
-    console.log('***in bodyparser promise');
     let body = '';
     req.on('data', (buf) => {
       body += buf.toString();
