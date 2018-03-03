@@ -1,5 +1,5 @@
 'use strict';
-const Fighter = require('../model/resource-api.js');
+const Fighter = require('../api/fighter-api.js');
 
 describe('Fighter', () => {
     test('it should have a id', () => {
