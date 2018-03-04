@@ -43,10 +43,9 @@ module.exports = class Router {
 
     let path = req.url.pathname;
     const currentRoute = this.routes[method][path];
-    console.log('currentRoute', currentRoute);
 
     if (!currentRoute) {
-      console.log(`404 Not Found: ${method} ${url}`);
+      throw '404 not found';
     }
     currentRoute(req, res);
   }
@@ -66,7 +65,7 @@ module.exports = class Router {
           code = 500;
         }
       }
-      res.writeHead(code);
+      res.writeHead(code, {'Content-Type': 'text/plain'});
       res.write(error);
       res.end();
       return;

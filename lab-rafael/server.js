@@ -14,6 +14,13 @@ router.get('/api/v1/cars', (req, res) => {
   if ('id' in req.url.query) {
     let id = req.url.query.id;
     console.log('car id', cars[id]);
+    // if (cars[id] === undefined) {
+    //   console.log('400 bad request. Please provide a valid id');
+    //   res.writeHead(400, {'Content-Type': 'application/json'});
+    //   res.write('400 bad request. please provide a valid id');
+    //   res.end();
+    //   return;
+    // }
     cars.forEach(car => {
       if (car.id === id) {
         response = car;
@@ -21,6 +28,10 @@ router.get('/api/v1/cars', (req, res) => {
       }
     });
     console.log(`404 car not found id: ${id}`);
+    res.writeHead(404, {'Content-Type': 'text/plain'});
+    res.write(`404 Not found with id: ${id}`);
+    res.end();
+    return;
   }
   res.writeHead(200, {'Content-Type': 'application/json'});
   res.write(JSON.stringify(response));
