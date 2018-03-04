@@ -22,4 +22,15 @@ describe('Server', () => {
         done();
       });
   });
+
+  test('throws 400 if no valid id provided', (done) => {
+    let noId = '';
+    request.get(`${SERVER}/api/v1/cars?id=${noId}`)
+      .end((err, res) => {
+        console.log('Error', err);
+        console.log('RES', res);
+        expect(res.status).toBe(404);
+        done();
+      });
+  });
 });
