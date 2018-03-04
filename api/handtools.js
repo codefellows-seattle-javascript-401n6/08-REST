@@ -1,11 +1,10 @@
 'use strict';
 
-//see demo
 const storage = require('../lib/storage.js');
 storage.seed();
 
-function getTool(req, res) {
-    let tools = storage.readAll();
+function toolJson(req, res) {
+    let tools = storage.getAll();
     let response = tools;
     if ('id' in req.url.query) {
         let id = req.url.query.id;
@@ -16,28 +15,28 @@ function getTool(req, res) {
     }
 
     res.writeHead(200, {
-        'Content-Type': 'text/plain'
+        'Content-Type': 'application/json'
     });
-    res.write('hi there');
+    res.write(JSON.stringify(response));
     res.end();
 }
 
-function createTool(req, res){
-    let brand = req.url.query.brand;
-    let name = req.url.query.name;
-    let use = req.url.query.use;
+// function createTool(req, res){
+//     let brand = req.url.query.brand;
+//     let name = req.url.query.name;
+//     let use = req.url.query.use;
 
-    let tool = storage.createTool(brand, name, use);
-    return tool;
-}
+//     let tool = storage.createTool(brand, name, use);
+//     return tool;
+// }
 
 
-function updateTool(req, res){
+// function updateTool(req, res){
 
-}
+// }
 
-function deleteTool() {
+// function deleteTool() {
 
-}
+// }
 
-module.exports = {getTool, createTool, updateTool, deleteTool};
+module.exports = {toolJson};
