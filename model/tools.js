@@ -2,7 +2,7 @@
 
 const uuidv4 = require('uuidv4');
 
-class Tools {
+class Tool {
     constructor(brand, name, use){
         this.id = uuidv4();
         this.brand = brand;
@@ -11,4 +11,4 @@ class Tools {
     }
 }
 
-module.exports = Tools;
+module.exports = Tool;
