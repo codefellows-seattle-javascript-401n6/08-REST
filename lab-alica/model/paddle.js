@@ -3,9 +3,9 @@
 const uuidv4 = require('uuid/v4');
 
 class Paddle {
-    constructor(type, bladeSurfaceArea, length) {
+    constructor(name, bladeSurfaceArea, length) {
         this.id = uuidv4();
-        this.type = type;
+        this.name = name;
         this.bladeSurfaceArea = bladeSurfaceArea;
         this.length = length;
     }
