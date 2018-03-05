@@ -1,69 +1,104 @@
 'use strict';
 
+const querystring = require('querystring');
 const parseUrl = require('./parse-url.js');
 const parseJSON = require('./parse-json.js');
 
 class Router {
      constructor() {
-    this.routes = {
-        GET: {}, 
-        POST: {},
-        PUT: {},
-        DELETE: {}
+        this.routes = {
+            GET: {}, 
+            POST: {},
+            PUT: {},
+            DELETE: {}
+        }
     }
-}
 
-get(path, cb) {
-    this.routes.GET[path] = cb;
-} 
+    get(endpoint, cb) {
+        this.routes.GET[endpoint] = cb;
+    } 
 
-post(path, cb) {
-    this.routes.POST[path] = cb;
-}
+    post(endpoint, cb) {
+        this.routes.POST[endpoint] = cb;
+    }
 
-put(path, cb) {
-    this.routes.PUT[path] = cb;
-}
+    put(endpoint, cb) {
+        this.routes.PUT[endpoint] = cb;
+    }
 
-delete(path, cb) {
-    this.routes.DELETE[path] = cb;
-}
+    delete(endpoint, cb) {
+        this.routes.DELETE[endpoint] = cb;
+    }
 
-route(req, res) {
-    return (req, res) => {
-        Promise.all([
-          parseUrl(req),
-          parseJSON(req)
-        ])
-        .then( ()=> {
-          if (typeof this.routes[req.method][req.url.pathname] === 'function') {
-            this.routes[req.method][req.url.pathname](req, res);
+    route(req, res) {
+        const method = req.method;
+        req.url = parseUrl(req);
+        // req.url.query = parseJSON(req.url.query);
+        // console.log(req.url.query);
+
+        let pathname =req.url.pathname;
+        parseUrl(req).then(url => {
+            let currentRoute = this.routes[method][pathname];
+            if (!currentRoute) {
+                throw `404 Not Found: ${method} ${url.pathname}`
+            }
+            currentRoute(req, res);
+        }).catch(err => console.error(err));
+    }
+
+    tryRoute(req, res) {
+        try {
+            return this.route(req, res);
+        } catch (error) {
+            console.log('ERROR:', error);
+            let code = 500; 
+            if (error && error.substr) {
+                code = parseInt(status, 10);
+                if (isNaN(code) || code < 300 || code >= 499) {
+                    code = 500;
+                }
+            }
+            res.writeHead(code);
+            res.write(error);
+            res.end();
             return;
-          }
+            }
+        }
+    }
+// trying to incorporate Promises...
+//     return (req, res) => {
+//         Promise.all([
+//           parseUrl(req),
+//           parseJSON(req)
+//         ])
+//         .then( () => {
+//           if (typeof this.routes[req.method][req.url.pathname] === 'function') {
+//             this.routes[req.method][req.url.pathname](req, res);
+//             return;
+//           }
     
-          console.error('route not found');
+//           console.error('route not found');
     
-          res.writeHead(404, {
-            'Content-Type': 'text/plain'
-          });
+//           res.writeHead(404, {
+//             'Content-Type': 'text/plain'
+//           });
     
-          res.write('route not found');
-          res.end();
-        })
-        .catch( err => {
-          console.error(err);
+//           res.write('route not found');
+//           res.end();
+//         })
+//         .catch( err => {
+//           console.error(err);
     
-          res.writeHead(400, {
-            'Content-Type': 'text/plain'
-          });
+//           res.writeHead(400, {
+//             'Content-Type': 'text/plain'
+//           });
     
-          res.write('bad request');
-          res.end();
-        });
-      };
-    };
-};
-
+//           res.write('bad request');
+//           res.end();
+//         });
+//       };
+//     };
+// };
 
 module.exports = Router;
 

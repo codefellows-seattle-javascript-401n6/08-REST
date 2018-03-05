@@ -1,15 +1,22 @@
 'use strict';
 
+const url = require('url');
+const querystring = require('querystring');
+
 module.exports = function(req) {
-    return new Promise((resolve, reject) => {
+  req.url = url.parse(req.url);
+  req.url.query = querystring.parse(req.url.query);
+
+  return new Promise((resolve, reject) => {
       if (req.method === 'POST' || req.method === 'PUT') {
-        var body = '';
+        let body = '';
   
-        req.on('data', data => {
+        req.body.on('data', (data) => {
           body += data.toString();
         });
   
-        req.on('end', () => {
+        req.body.on('end', () => {
+          req.body = body;
           try {
             req.body = JSON.parse(body);
             resolve(req);
@@ -19,14 +26,12 @@ module.exports = function(req) {
           };
         });
   
-        req.on('error', err => {
+        req.body.on('error', (err) => {
           console.error(err);
           reject(err);
         });
-  
         return;
-      };
-  
+      }
       resolve();
     });
   };
