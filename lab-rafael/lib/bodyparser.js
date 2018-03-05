@@ -14,6 +14,7 @@ function bodyParser(req, res) {
     });
 
     req.on('error', err => {
+      console.log('Error from parser', err);
       throw err;
     });
   });

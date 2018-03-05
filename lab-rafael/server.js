@@ -9,24 +9,29 @@ const router = new Router();
 
 router.get('/api/v1/cars', (req, res) => {
   let cars = storage.readAll();
+  //for tests
+  cars[1].id = '1293rsfwqedfs';
   let response = cars;
-  console.log(cars);
+
   if ('id' in req.url.query) {
     let id = req.url.query.id;
-    console.log('car id', cars[id]);
-    // if (cars[id] === undefined) {
-    //   console.log('400 bad request. Please provide a valid id');
-    //   res.writeHead(400, {'Content-Type': 'application/json'});
-    //   res.write('400 bad request. please provide a valid id');
-    //   res.end();
-    //   return;
-    // }
+    if (id.length === 0) {
+      console.log('400 bad request. Please provide a valid id');
+      res.writeHead(400, {'Content-Type': 'text/plain'});
+      throw '400 bad request';
+    }
+    
     cars.forEach(car => {
       if (car.id === id) {
+        console.log('Found Car id', car.id);
         response = car;
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.write(JSON.stringify(response));
+        res.end();
         return;
       }
     });
+
     console.log(`404 car not found id: ${id}`);
     res.writeHead(404, {'Content-Type': 'text/plain'});
     res.write(`404 Not found with id: ${id}`);
@@ -46,15 +51,14 @@ router.post('/api/v1/cars', (req, res) => {
       let year = body.year;
 
       storage.create(model, make, year);
-      console.log(body);
-      console.log(storage.readAll());
       res.end();
+    }).catch(err => {
+      console.log('Error from post', err);
     });
 });
 
 router.destroy('api/v1/cars', (req, res) => {
   let cars = storage.readAll();
-  console.log(cars);
   if ('id' in req.url.query) {
     let id = req.url.query.id;
     console.log('car id', cars[id]);
