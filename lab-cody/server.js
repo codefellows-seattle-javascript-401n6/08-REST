@@ -5,15 +5,15 @@ const url = require('url');
 const querystring = require('querystring');
 const Router = require('./lib/router.js');
 
-const simpleAPI = require('./api/simpleAPI.js');
-const dogeAPI = require('./api/dogeAPI.js');
+// const simpleAPI = require('./api/simpleAPI.js');
+const api = require('./api/dogeAPI.js');
 
 
  let router = new Router();
-router.get('/text', simpleAPI.text);
-router.get('/json', simpleAPI.json);
-router.get('/doge', dogeAPI.json);
-// router.get('/dogespeak', dogeAPI.text);
+router.get('/api/doge', api.getDogs);
+router.post('/api/doge', api.adoptDogs);
+// router.remove('/api/doge', api.giveUpDogs);
+// router.put('/api/doge', api.groomDogs);
 
 
 

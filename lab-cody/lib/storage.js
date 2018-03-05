@@ -3,13 +3,13 @@ const Dog = require('../model/dog.js');
 
 let pound = {};
 
-function abondonDog() {
+function abandonDog() {
 
     pound = {};
 
     const michael = new Dog('Michael', 3, 'Great Dane');
-    const jb = new Dog('JB',6,'Beagle' );
-    const steve = new Dog('Steve',5,'Poodle');
+    const jb = new Dog('JB',6,'lab' );
+    const steve = new Dog('Steve',5,'irish wolf hound');
 
     pound[michael.id] = michael;
     pound[jb.id] = jb;
@@ -33,4 +33,4 @@ function getAll() {
   
 
 
-module.exports = {abondonDog, getAll};
+module.exports = {abandonDog, getAll};

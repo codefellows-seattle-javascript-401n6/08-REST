@@ -1,7 +1,7 @@
 'use strict';
 const parseUrl = require('url').parse;
 const parseQuery = require('querystring').parse;
-const pound = require('./storage.js');
+const storage = require('./storage.js');
 
 class Router {
   constructor() {
@@ -15,6 +15,7 @@ class Router {
 
   get(path, cb) {
     this.routes.GET[path] = cb;
+    
   }
 
   post(path, cb) {
@@ -25,7 +26,7 @@ class Router {
     this.routes.PUT[path] = cb;
   }
 
-  delete(path, cb) {
+  remove(path, cb) {
     this.routes.DELETE[path] = cb;
   }
 
@@ -40,14 +41,15 @@ class Router {
     req.url.query = parseQuery(req.url.query);
     console.log('URL:', req.url.href);
     console.log('QUERY:', req.url.query);
-    console.log('pound', pound);
     
-   
-
+    
+    
+    
     let path = req.url.pathname;
     const route = this.routes[method][path];
+    
     if (!route) {
-    throw `404 Not Found: ${method} ${path} ${pound}`; 
+    throw `404 Not Found: ${method} ${path} ${storage.getAll()}`; 
     //   throw `404 Not Found: ${method}`; 
 
     }

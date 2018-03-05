@@ -1,6 +1,9 @@
 'use strict';
+const http = require('http');
+const url = require('url');
+const parseQuery = require('querystring');
 
-function bodyparser() {
+function bodyParser() {
     let body = '';
     req.body.on("data", (data) => {
       body += data.toString();
@@ -15,3 +18,5 @@ function bodyparser() {
       throw error
     });
   }
+
+  module.exports = bodyParser;
