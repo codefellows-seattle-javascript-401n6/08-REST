@@ -46,6 +46,9 @@ router.get('/api/v1/cars', (req, res) => {
 router.post('/api/v1/cars', (req, res) => {
   bodyParser(req, res)
     .then(body => {
+      if (!body.make || !body.model || !body.year) {
+        throw '400 bad request';
+      }
       let make = body.make;
       let model = body.model;
       let year = body.year;
@@ -54,6 +57,8 @@ router.post('/api/v1/cars', (req, res) => {
       res.end();
     }).catch(err => {
       console.log('Error from post', err);
+      res.end();
+      return;
     });
 });
 

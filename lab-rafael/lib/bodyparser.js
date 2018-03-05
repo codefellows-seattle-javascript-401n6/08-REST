@@ -10,6 +10,7 @@ function bodyParser(req, res) {
 
     req.on('end', () => {
       req.body = JSON.parse(body);
+      console.log('BODY', body);
       resolve(req.body);
     });
 

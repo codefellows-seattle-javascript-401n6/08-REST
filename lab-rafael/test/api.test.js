@@ -31,9 +31,21 @@ describe('Server', () => {
       });
   });
 
-  test('returns with 200 and a response body if valid id provided.', (done) => {
-    let validId = '1293rsfwqedfs';
-    request.get(`${SERVER}/api/v1/cars?id=${validId}`)
+  test('returns with 200 and a when a valid request body provided.', (done) => {
+    let validRequest = {make: 'toyota', model: 'corolla', year: '2020'};
+    request.post(`${SERVER}/api/v1/cars`)
+      .send(JSON.stringify(validRequest))
+      .end((err, res) => {
+        expect(res.status).toBe(200);
+        done();
+      });
+  });
+
+  test('returns with 400 if no valid request body provided', (done) => {
+    let badBody = {};
+    request.post(`${SERVER}/api/v1/cars`)
+      .set('Content-Type', 'application/json')
+      .send(badBody)
       .end((err, res) => {
         console.log(res);
         expect(res.status).toBe(200);
@@ -41,7 +53,7 @@ describe('Server', () => {
       });
   });
 
-  test('returns with 400 bad request if no request body or invalid body.', (done) => {
+  test('returns with 200 and a response body if valid id provided.', (done) => {
     let validId = '1293rsfwqedfs';
     request.get(`${SERVER}/api/v1/cars?id=${validId}`)
       .end((err, res) => {

@@ -15,8 +15,6 @@ module.exports = class Router {
 
   get(path, cb) {
     this.routes.GET[path] = cb; 
-    console.log(path);
-    console.log(this.routes);
   }
 
   put(path, cb) {
@@ -33,13 +31,9 @@ module.exports = class Router {
 
   route(req, res) {
     const method = req.method;
-    console.log(method);
 
     req.url = url.parse(req.url);
     req.url.query = queryString.parse(req.url.query);
-
-    console.log(req.url);
-    console.log(req.url.query);
 
     let path = req.url.pathname;
     const currentRoute = this.routes[method][path];
@@ -54,7 +48,6 @@ module.exports = class Router {
     try {
       return this.route(req, res);
     } catch (error) {
-      console.log('ERROR:', error);
       // assume the worst as 500
       let code = 500;
       if (error && error.substr) {
