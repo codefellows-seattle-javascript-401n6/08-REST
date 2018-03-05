@@ -1,5 +1,4 @@
 "use strict";
-
 function text(req, res) {
     res.writeHead(200, {
       'Content-Type': 'text/plain'
@@ -12,8 +11,8 @@ function text(req, res) {
     res.writeHead(200, {
       'Content-Type': 'application/json'
     });
-    res.write(JSON.stringify({data: [1,2,3]}));
+    res.write(JSON.stringify({foo: 'bar'}));
     res.end();
   }
   
-  module.exports = {text, json}
+  module.exports = { text, json }
