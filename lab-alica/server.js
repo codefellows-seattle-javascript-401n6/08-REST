@@ -15,53 +15,56 @@ const router = new Router();
 
 storage.seed();
 
-router.get('/api/paddle', function(req, res) {
-    console.log(req.url);
+router.get('/api/paddle', (req, res) => {
     if (req.url.query.id) {
-        console.log(req.url.query);
-        storage.fetchItem('paddle', req.url.query.id)
-        .then(paddle => {
-            res.writeHead(200, {
-                'Content-Type': 'application/json'
-            });
-            console.log('paddle', paddle);
-            res.write(JSON.stringify(paddle));
-            res.end();
-        })
-        .catch(err => {
-            console.error(err);
-            res.writeHead(404, {
-                'Content-Type': 'text/plain'
-            });
-            res.write('not found');
-            res.end();
-        });
-        return;
-    };
-        res.writeHead(400, {
-            'Content-Type': 'text/plain'
-        });
-        res.write('bad request');
+        const storeObj = storage.read(req.url.query.id);
+        res.write(JSON.stringify(storeObj));
         res.end();
+            // .then(paddle => {
+            //     res.writeHead(200, {
+            //         'Content-Type': 'application/json'
+            //     });
+            //     console.log('paddle', paddle);
+            //     res.write(JSON.stringify(paddle));
+            //     res.end();
+            // })
+            // .catch(err => {
+            //     console.error(err);
+            //     res.writeHead(404, {
+            //         'Content-Type': 'text/plain'
+            //     });
+            //     res.write('not found');
+            //     res.end();
+            // });
+    } else {
+    res.writeHead(400, {
+        'Content-Type': 'text/plain'
+    });
+    res.write('bad request');
+    res.end();
+    }
 });
 
-router.post('/api/paddle', function(req, res) {
-    try {
-        var paddle = new Paddle(req.body.name, req.body.bladeSurfaceArea, req.body.length);
-        storage.createItem('paddle', paddle);
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        });
-        res.write(JSON.stringify(paddle));
-        res.end();
-    } catch (err) {
-        console.error(err);
-        res.writeHead(400, {
-            'Content-Type': 'text/plain'
-        });
-        res.write('bad request');
-        res.end();
-    };
+router.post('/api/paddle', (req, res) => {
+        parseJSON(req, res)
+        .then(req => {
+            let name = req.body.name;
+            let bladeSurfaceArea = req.body.bladeSurfaceArea;
+            let length = req.body.length;
+            storage.create(name, bladeSurfaceArea, length);
+            // res.writeHead(200, {
+            //     'Content-Type': 'application/json'
+            // });
+            // res.write(name, bladeSurfaceArea, length);
+            res.end();    
+    // })  .catch (err => {
+    //     console.error(err);
+    //     res.writeHead(400, {
+    //         'Content-Type': 'text/plain'
+    //     });
+    //     res.write('bad request');
+    //     res.end();
+    });
 });
 
 const server = http.createServer((req, res) => {

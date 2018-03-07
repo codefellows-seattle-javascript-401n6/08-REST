@@ -13,8 +13,8 @@ function seed() {
 
     PADDLES[shogun.id] = shogun;
     PADDLES[stikine.id] = stikine;
+    powerhouse.id = 'test'; // DANGER TESTING!
     PADDLES[powerhouse.id] = powerhouse;
-    console.log("PADDLES:", PADDLES);
 }
 
 function size() {
@@ -36,13 +36,14 @@ function readAll() {
 }
 
 function read(id) {
+
     if (!id in PADDLES) {
         throw "Paddle doesn't exist. ID: " + id;
     }
     return PADDLES[id];
 }
 
-function update(id, bladeSurfaceArea, length) {
+function update(id, name, bladeSurfaceArea, length) {
     let paddle = read(id);
     paddle.name = name;
     paddle.bladeSurfaceArea = bladeSurfaceArea;
