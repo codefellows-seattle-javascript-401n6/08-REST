@@ -6,10 +6,10 @@ let CARS = {};
 
 function seed() {
     CARS = {};
-    save(new Car("Ford", "Mustang GT", "2006", "Grey"));
-    save(new Car("Ford", "Mustang", "1994", "Teal"));
-    save(new Car("Saturn", "Unknown Coup", "Unknown year", "Silver"));
-    save(new Car("Ford", "Ranger", "1997", "Red"));
+    save(new Car("Alice", "Ford", "Mustang GT", "2006", "Grey"));
+    save(new Car("Leena", "Ford", "Mustang LX", "1994", "Teal"));
+    save(new Car("Unnamed", "Saturn", "Unknown Coup", "Unknown year", "Silver"));
+    save(new Car("Camile", "Ford", "Ranger XL", "1997", "Red"));
 }
 
 function save(car) {
