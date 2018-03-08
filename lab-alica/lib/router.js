@@ -37,15 +37,15 @@ class Router {
 
         let path =req.url.pathname;
 
-        let currentRoute = this.routes[method][path];
+        let currentRoute = this.routes[method][path]
             // if (!currentRoute) {
             //     throw `404 Not Found: ${method} ${url.path}`
-    
-           if (currentRoute) {
-               currentRoute(req, res);
-           }
-        // }).catch(err => console.error(err));
-    }
+                
+                if (currentRoute) {
+                    currentRoute(req, res);
+                }
+            }
+        // }
 
     tryRoute(req, res) {
         try {
@@ -65,48 +65,6 @@ class Router {
             return;
             }
         }
-    }
-// trying to incorporate Promises...
-//     return (req, res) => {
-//         Promise.all([
-//           parseUrl(req),
-//           parseJSON(req)
-//         ])
-//         .then( () => {
-//           if (typeof this.routes[req.method][req.url.pathname] === 'function') {
-//             this.routes[req.method][req.url.pathname](req, res);
-//             return;
-//           }
-    
-//           console.error('route not found');
-    
-//           res.writeHead(404, {
-//             'Content-Type': 'text/plain'
-//           });
-    
-//           res.write('route not found');
-//           res.end();
-//         })
-//         .catch( err => {
-//           console.error(err);
-    
-//           res.writeHead(400, {
-//             'Content-Type': 'text/plain'
-//           });
-    
-//           res.write('bad request');
-//           res.end();
-//         });
-//       };
-//     };
-// };
+    };
 
 module.exports = Router;
-
-// did you have a route at this path for this function?
-// looks up what function was hooked up to that url and sends that response
-
-// router tries to look up a route with that req and res
-
-// try and execute this route if anything goes wrong execute this (send back a response with status code and error)
-// look up route, if it doesn't exist use throw keyword -> program will crash = 404. catch it over here and send back a response that something went wrong

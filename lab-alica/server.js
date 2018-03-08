@@ -53,14 +53,6 @@ const server = http.createServer((req, res) => {
     return router.tryRoute(req, res);
 });
 
-// router.route()
-// req needs a pathname(url) and http method
-// const server = http.createServer((req, res) => {
-//     console.log('paddle', req.url.query.text);
-//     res.write(JSON.stringify(req.url.query.text))
-//     res.end();
-// });
-
 server.listen(PORT, () => {
     console.log(`listening on ${PORT}`);
 });

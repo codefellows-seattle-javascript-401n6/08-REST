@@ -13,7 +13,6 @@ function seed() {
 
     PADDLES[shogun.id] = shogun;
     PADDLES[stikine.id] = stikine;
-    powerhouse.id = 'test'; // DANGER TESTING!
     PADDLES[powerhouse.id] = powerhouse;
 }
 
