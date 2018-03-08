@@ -15,27 +15,19 @@ const router = new Router();
 
 storage.seed();
 
+// GET -> get all the paddles
+router.get('/api/paddles', (req, res) => {
+    const PADDLES = storage.readAll();
+    res.write(JSON.stringify(PADDLES));
+    res.end();
+});
+
+// GET -> get an id of a single paddle
 router.get('/api/paddle', (req, res) => {
     if (req.url.query.id) {
         const storeObj = storage.read(req.url.query.id);
         res.write(JSON.stringify(storeObj));
         res.end();
-            // .then(paddle => {
-            //     res.writeHead(200, {
-            //         'Content-Type': 'application/json'
-            //     });
-            //     console.log('paddle', paddle);
-            //     res.write(JSON.stringify(paddle));
-            //     res.end();
-            // })
-            // .catch(err => {
-            //     console.error(err);
-            //     res.writeHead(404, {
-            //         'Content-Type': 'text/plain'
-            //     });
-            //     res.write('not found');
-            //     res.end();
-            // });
     } else {
     res.writeHead(400, {
         'Content-Type': 'text/plain'
@@ -51,19 +43,9 @@ router.post('/api/paddle', (req, res) => {
             let name = req.body.name;
             let bladeSurfaceArea = req.body.bladeSurfaceArea;
             let length = req.body.length;
-            storage.create(name, bladeSurfaceArea, length);
-            // res.writeHead(200, {
-            //     'Content-Type': 'application/json'
-            // });
-            // res.write(name, bladeSurfaceArea, length);
+            let paddle = storage.create(name, bladeSurfaceArea, length);
+            res.write(JSON.stringify(paddle));
             res.end();    
-    // })  .catch (err => {
-    //     console.error(err);
-    //     res.writeHead(400, {
-    //         'Content-Type': 'text/plain'
-    //     });
-    //     res.write('bad request');
-    //     res.end();
     });
 });
 

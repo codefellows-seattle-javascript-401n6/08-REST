@@ -32,7 +32,6 @@ class Router {
 
     route(req, res) {
         const method = req.method;
-        console.log('parseUrl:', req.url);
         req.url = parseUrl(req);
         req.url.query = parseQuery(req.url.query);
 
@@ -42,7 +41,9 @@ class Router {
             // if (!currentRoute) {
             //     throw `404 Not Found: ${method} ${url.path}`
     
-            currentRoute(req, res);
+           if (currentRoute) {
+               currentRoute(req, res);
+           }
         // }).catch(err => console.error(err));
     }
 
