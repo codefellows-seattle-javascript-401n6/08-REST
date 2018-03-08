@@ -8,14 +8,18 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js"
+  },
+  "jest": {
+    "verbose": true
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chai": "^4.1.2",
+    "jest": "^22.4.2",
     "nodemon": "^1.17.1",
     "superagent": "^3.8.2",
     "uuid": "^3.2.1"

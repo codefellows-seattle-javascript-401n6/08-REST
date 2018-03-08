@@ -1,6 +1,6 @@
 'use strict';
 
-const querystring = require('querystring');
+const parseQuery = require('querystring').parse;
 const parseUrl = require('./parse-url.js');
 const parseJSON = require('./parse-json.js');
 
@@ -14,36 +14,36 @@ class Router {
         }
     }
 
-    get(endpoint, cb) {
-        this.routes.GET[endpoint] = cb;
+    get(path, cb) {
+        this.routes.GET[path] = cb;
     } 
 
-    post(endpoint, cb) {
-        this.routes.POST[endpoint] = cb;
+    post(path, cb) {
+        this.routes.POST[path] = cb;
     }
 
-    put(endpoint, cb) {
-        this.routes.PUT[endpoint] = cb;
+    put(path, cb) {
+        this.routes.PUT[path] = cb;
     }
 
-    delete(endpoint, cb) {
-        this.routes.DELETE[endpoint] = cb;
+    delete(path, cb) {
+        this.routes.DELETE[path] = cb;
     }
 
     route(req, res) {
         const method = req.method;
+        console.log('parseUrl:', req.url);
         req.url = parseUrl(req);
-        // req.url.query = parseJSON(req.url.query);
-        // console.log(req.url.query);
+        req.url.query = parseQuery(req.url.query);
 
-        let pathname =req.url.pathname;
-        parseUrl(req).then(url => {
-            let currentRoute = this.routes[method][pathname];
-            if (!currentRoute) {
-                throw `404 Not Found: ${method} ${url.pathname}`
-            }
+        let path =req.url.pathname;
+
+        let currentRoute = this.routes[method][path];
+            // if (!currentRoute) {
+            //     throw `404 Not Found: ${method} ${url.path}`
+    
             currentRoute(req, res);
-        }).catch(err => console.error(err));
+        // }).catch(err => console.error(err));
     }
 
     tryRoute(req, res) {
@@ -58,7 +58,7 @@ class Router {
                     code = 500;
                 }
             }
-            res.writeHead(code);
+            res.writeHead(code, {'Content-Type': 'text/plain'});
             res.write(error);
             res.end();
             return;
