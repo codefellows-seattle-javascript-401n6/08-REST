@@ -52,6 +52,7 @@ router.post('/api/paddle', (req, res) => {
             let bladeSurfaceArea = req.body.bladeSurfaceArea;
             let length = req.body.length;
             storage.create(name, bladeSurfaceArea, length);
+            console.log(name, bladeSurfaceArea, length);
             // res.writeHead(200, {
             //     'Content-Type': 'application/json'
             // });
