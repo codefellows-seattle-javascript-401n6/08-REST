@@ -23,14 +23,29 @@ function getAll() {
     console.log('this is the pound',pound)
 
 };
+function get(id) {
+    return pound[id];
+}
 
-// function getAll() {
-//     return new Promise((resolve, reject) => {
-//       resolve(Object.values(pound));
-//       console.log(pound)
-//     });
-//   }
+function save(puppy) {
+    pound[puppy.id] = puppy;
+}
+
+
+function update(id, name, age, breed) {
+    let groom = get(id);
+    groom.name = name;
+    groom.age = age;
+    groom.breed = breed;
+    return groom;
+  }
+  
+  function remove(id) {
+    let abandon = get(id);
+    delete pound[id];
+    return abandon;
+  }
   
 
 
-module.exports = {abandonDog, getAll};
+module.exports = {abandonDog, getAll, update, remove, save, get};
