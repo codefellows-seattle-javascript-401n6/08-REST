@@ -40,7 +40,7 @@ router.get('/api/paddle', (req, res) => {
 
     if (req.url.pathname === '/api/paddle') {
         req.on('error', err => {
-          console.error(err);
+            console.error(err);
         });
     }
     if (req.url.query.id === '') {
@@ -68,7 +68,9 @@ router.get('/api/paddle', (req, res) => {
         }
     } else {
         let paddles = storage.readAll();
-        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
+        });
         res.write(JSON.stringify(paddles));
         res.end();
     }
@@ -95,21 +97,31 @@ router.post('/api/paddle', (req, res) => {
         })
 });
 
-// router.remove('api/paddle', (req,res) => {
-//     let paddles = storage.readAll(); 
-//     if ('id' in req.url.query) {
-//         let id = req.url.id;
-//         console.log('paddle id:', paddles[id]);
-//         paddles.forEach((paddle, index) => {
-//             if (paddle.id === id) {
-//                 storage.splice(index, 1);
-//                 console.log(paddles);
-//                 res.writeHead(204, {'Content-Type': 'application/json'});
-//                 res.end();
-//                 }
-//             })
-//         }
-//     });
+router.delete('api/paddle', (req, res) => {
+        if(req.url.query.id) {
+         storage.remove('paddle', req.url.query.id)
+          .then( paddle => {
+            res.writeHead(200, {
+              'Content-Type': 'application/json'
+            });
+            res.write(JSON.stringify(paddle));
+            res.end();
+          }).catch(err => {
+            console.error(err);
+            res.writeHead(404, {
+              'Content-Type': 'text/plain'
+            });
+            res.write('item not found');
+            res.end();
+          });
+          return;
+        }
+        res.writeHead(400, {
+          'Content-Type': 'text/plain'
+        });
+        res.write('bad request');
+        res.end();
+      });
 
 const server = http.createServer((req, res) => {
     return router.tryRoute(req, res);
