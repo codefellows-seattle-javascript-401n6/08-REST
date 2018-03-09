@@ -6,14 +6,21 @@ let PADDLES = {};
 
 function seed() {
     PADDLES = {};
-
+    
+    const test = new Paddle("test", 10, 100);
+    test.id = 'paddletest';
     const shogun = new Paddle("Sho-Gun", 711, 197);
     const stikine = new Paddle("Stikine", 656, 194);
     const powerhouse = new Paddle("Powerhouse", 720, 200);
 
+    PADDLES[test.id] = test;
     PADDLES[shogun.id] = shogun;
     PADDLES[stikine.id] = stikine;
     PADDLES[powerhouse.id] = powerhouse;
+}
+  
+function get(id) {
+    return PADDLES[id];
 }
 
 function size() {
@@ -50,12 +57,12 @@ function update(id, name, bladeSurfaceArea, length) {
     return paddle;
 }
 
-function del(id) {
+function remove(id) {
     let paddle = read(id);
     delete PADDLES[id];
     return paddle;
 }
 
 module.exports = {
-    seed, size, create, readAll, read, update, del,
+    seed, get, size, create, readAll, read, update, remove,
 };

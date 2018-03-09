@@ -32,28 +32,29 @@ class Router {
 
     route(req, res) {
         const method = req.method;
+
         req.url = parseUrl(req);
         req.url.query = parseQuery(req.url.query);
 
-        let path =req.url.pathname;
-
+        let path = req.url.pathname;
         let currentRoute = this.routes[method][path]
-            // if (!currentRoute) {
-            //     throw `404 Not Found: ${method} ${url.path}`
-                
-                if (currentRoute) {
-                    currentRoute(req, res);
-                }
-            }
-        // }
+
+        if(!currentRoute) {
+            throw '404 not found';
+        }
+        if(currentRoute) {
+            currentRoute(req,res);
+        }
+    }
 
     tryRoute(req, res) {
         try {
             return this.route(req, res);
         } catch (error) {
-            console.log('ERROR:', error);
+            console.error('ERROR:', error);
             let code = 500; 
             if (error && error.substr) {
+                let status = error.substr(0,3);
                 code = parseInt(status, 10);
                 if (isNaN(code) || code < 300 || code >= 499) {
                     code = 500;
