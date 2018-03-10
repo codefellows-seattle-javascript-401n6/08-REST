@@ -42,6 +42,7 @@ describe('Server tests', () => {
         request.get(SERVER_URL + '/api/cars')
         .end((err, res) => {
           expected = res.body[0];
+          console.log('RES.BODY', res.body);
           let id = res.body[0].id
           request.get(`${SERVER_URL}/api/cars?id=${id}`)
           .end((err, res) => {
@@ -51,7 +52,7 @@ describe('Server tests', () => {
         })
       })
       test('returns 200 for POST requests. Post request with valid body should respond with the body.', (done) => {
-        let newCar = {name: "made up", make: "BestCar", model: "BestModel", year: "2022", color: "BestColor"}
+        let newCar = {name: "made up", make: "BestCar", model: "BestModel", year: "2022", color: "BestColor"};
         request.post(SERVER_URL + '/api/cars')
         .set('Content-Type', 'application/json')
         .send(JSON.stringify(newCar))

@@ -20,14 +20,18 @@ function get(id) {
     return CARS[id];
 }
 
-function getAll () {
-    return Object.values(CARS);
+function getAll() {
+    var vals = Object.keys(CARS).map(function(key) {
+        return CARS[key];
+    });
+    return vals;
+//return Object.values(CARS);
 }
 
-function remove (id) {
+function remove(id) {
     let deletedCar = get[id];
-    delete CARS[id]
+    delete CARS[id];
     return deletedCar;
 }
 
-module.exports = {seed, save, get, remove, getAll};
+module.exports = {seed: seed, save: save, get: get, remove: remove, getAll: getAll};

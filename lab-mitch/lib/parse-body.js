@@ -4,7 +4,7 @@ const http = require('http');
 const url = require('url');
 
 
-function manualBodyParser() {
+function manualBodyParser(req) {
     return new Promise((resolve, reject) => {
         let body = '';
         req.on('data', (buf) => {
