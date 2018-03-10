@@ -38,15 +38,16 @@ function readAll() {
 }
 
 function read(id) {
-    // if (!id in PADDLES) {
-    //     throw "Paddle doesn't exist. ID: " + id;
-    // }
+    if (!id in PADDLES) {
+        throw "Paddle doesn't exist. ID: " + id;
+    }
     return PADDLES[id];
 }
 
 function update(id, name, bladeSurfaceArea, length) {
     let paddle = read(id);
-    paddle.name = name;
+    console.log("PADDLE", paddle)
+    paddle.name = name || paddle.name;
     paddle.bladeSurfaceArea = bladeSurfaceArea;
     paddle.length = length;
     return paddle;
