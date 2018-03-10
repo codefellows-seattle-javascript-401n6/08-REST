@@ -18,10 +18,6 @@ function seed() {
     PADDLES[stikine.id] = stikine;
     PADDLES[powerhouse.id] = powerhouse;
 }
-  
-function get(id) {
-    return PADDLES[id];
-}
 
 function size() {
     let paddles = readAll();
@@ -42,10 +38,9 @@ function readAll() {
 }
 
 function read(id) {
-
-    if (!id in PADDLES) {
-        throw "Paddle doesn't exist. ID: " + id;
-    }
+    // if (!id in PADDLES) {
+    //     throw "Paddle doesn't exist. ID: " + id;
+    // }
     return PADDLES[id];
 }
 
@@ -64,5 +59,5 @@ function remove(id) {
 }
 
 module.exports = {
-    seed, get, size, create, readAll, read, update, remove,
+    seed, size, create, readAll, read, update, remove,
 };
