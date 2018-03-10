@@ -44,7 +44,7 @@ describe('Server tests', () => {
   });
 
   test('returns 200 for valid id with a response body for a request made with a valid id', (done) => {
-    let validId = 'paddletest';
+    let validId = 'paddle test';
     request.get(`${SERVER_URL}/api/paddle?id=${validId}`)
       .end((err, res) => {
         expect(res.status).toBe(200);
