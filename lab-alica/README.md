@@ -3,7 +3,7 @@
 ### Author: Alicia Lycan
 
 ### Introduction
-This is a simple node.js app which creates an HTTP server that handles Restful API's using GET, POST, and DELETE to a server-level persistance layer. It is built using Vanilla JavaScript and practices separation of concerns.
+This is a simple node.js app which creates an HTTP server that handles Restful API's using GET, POST, PUT, and DELETE to a server-level persistance layer. It is built using Vanilla JavaScript and practices separation of concerns.
 
 ### System Requirements:
 

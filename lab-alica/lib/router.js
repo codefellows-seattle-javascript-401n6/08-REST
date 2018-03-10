@@ -26,7 +26,7 @@ class Router {
         this.routes.PUT[path] = cb;
     }
 
-    delete(path, cb) {
+    remove(path, cb) {
         this.routes.DELETE[path] = cb;
     }
 

@@ -4,9 +4,6 @@ const parseUrl = require('url').parse;
 const parseQuery = require('querystring').parse;
 
 module.exports = function(req) {
-  req.url = parseUrl(req.url);
-  req.url.query = parseQuery(req.url.query);
-
   return new Promise((resolve, reject) => {
       if (req.method === 'POST' || req.method === 'PUT') {
         let body = '';
@@ -18,6 +15,7 @@ module.exports = function(req) {
         req.on('end', () => {
           req.body = body;
           try {
+            console.log("JSON END", body)
             req.body = JSON.parse(body);
             resolve(req);
           } catch (err) {
