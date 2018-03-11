@@ -36,8 +36,8 @@ class Router {
 
     req.url = parseUrl(req.url);
     req.url.query = parseQuery(req.url.query);
-    console.log('URL:', req.url.href);
-    console.log('QUERY:', req.url.query);
+    //console.log('URL:', req.url.href);
+    //console.log('QUERY:', req.url.query);
 
     let path = req.url.pathname;
     const route = this.routes[method][path];
@@ -51,7 +51,7 @@ class Router {
     try {
       return this.route(req, res);
     } catch (error) {
-      console.log('ERROR:', error)
+      //console.log('ERROR:', error)
       // assume the worst as 500
       let code = 500;
       if (error && error.substr) {

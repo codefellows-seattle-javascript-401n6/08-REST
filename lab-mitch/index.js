@@ -14,12 +14,12 @@ router.put('/api/cars', api.updateCar);
 
 
 const server = http.createServer((req, res) => {
-    console.log('something');
+    //console.log('something');
    return router.tryRoute(req, res);
 });
 
 const PORT = 3000 || process.env.PORT;
 
 server.listen(PORT, () => {
-    console.log('http://localhost:', PORT);
+    //console.log('http://localhost:', PORT);
 })

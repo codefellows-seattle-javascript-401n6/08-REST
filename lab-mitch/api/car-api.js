@@ -10,13 +10,13 @@ const Car = require('../models/car.js')
 storage.seed();
 
 function getCars(req, res) {
-    console.log('Inside get cars');
+    //console.log('Inside get cars');
     //console.log('Request', req);
     //console.log('Response', res);
     req.url = url.parse(req.url);
-    console.log('Req.URL', req.url);
+    //console.log('Req.URL', req.url);
     req.url.query = queryString.parse(req.url.query);
-    console.log('req.url.query', req.url.query);
+    //console.log('req.url.query', req.url.query);
 
     if (req.url.pathname === '/api/cars') {
         req.on('error', err => {
@@ -48,12 +48,12 @@ function getCars(req, res) {
                 res.end();
             }
         } else {
-            console.log('Inside Else')
+            //console.log('Inside Else')
             let cars = storage.getAll();
             res.writeHead(200, {
                 'Content-Type': 'application/json'
             });
-            console.log('CARS', cars);
+            //console.log('CARS', cars);
             res.write(JSON.stringify(cars));
             res.end();
         }
@@ -68,22 +68,22 @@ function getCars(req, res) {
 }
 
 function createCar(req, res) {
-        // console.log('car-api - creatCar req', req);
+        //console.log('car-api - creatCar req', req);
     bodyParser(req).then(
         (body) => {
             try {
                 body = JSON.parse(body);
-                console.log('car-api - creatCar - try - body', body.name);
+                //console.log('car-api - creatCar - try - body', body.name);
                 let car = new Car(body.name, body.make, body.model, body.year, body.color);
-                console.log('car-api - creatCar - try - car');
+                //console.log('car-api - creatCar - try - car');
                 let carID = car.id;
-                console.log('car-api - creatCar - try - carID', car.id);
+                //console.log('car-api - creatCar - try - carID', car.id);
                 storage.save(car);
                 let savedCar = storage.get(carID);
                 res.writeHead(200, {
                     'Content-Type': 'application/json'
                 });
-                console.log('Car.api - create car - savedCar', savedCar);
+                //console.log('Car.api - create car - savedCar', savedCar);
                 res.write(JSON.stringify(savedCar));
                 res.end();
             } catch (err) {
@@ -134,29 +134,26 @@ function updateCar(req, res) {
 }
 
 function removeCar(req, res) {
-    // res.writeHead({'Content-Type': 'text/plain'});
-    // res.write('Inside remove car');
-    // res.end();
-    console.log('car-api - removeCar');
+     //console.log('car-api - removeCar');
     req.url = url.parse(req.url);
     
     req.url.query = queryString.parse(req.url.query);
-    console.log('reg.url.query', req.url.query);
+    //console.log('reg.url.query', req.url.query);
 
     if (req.url.pathname === '/api/cars') {
-        console.log('Inside If');
+        //console.log('Inside If');
         req.on('error', err => {
             console.error(err);
         });
         if (req.url.query.id) {
-            console.log('Inside second if');
+            //console.log('Inside second if');
             let id = req.url.query.id;
             storage.remove(id);
-            console.log("id", id);
+            //console.log("id", id);
            res.writeHead(200, {'Content-Type': 'text/plain'});
            res.write(`${id} Successfully deleted.`);
            res.end();
-           console.log('After res.write-end');
+           //console.log('After res.write-end');
         }
     } else {
         let cars = storage.getAll();

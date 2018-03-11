@@ -9,7 +9,7 @@ describe('Server tests', () => {
         request.get(SERVER_URL + '/incorrect')
           .end((err, res) => {
             if (err) {
-             // console.log('ERROR:', err);
+             // //console.log('ERROR:', err);
             }
             expect(res.status).toBe(404);
             done();
@@ -20,7 +20,7 @@ describe('Server tests', () => {
         request.get(SERVER_URL + '/api/cars' + 'invalid ID')
           .end((err, res) => {
             if (err) {
-              console.log('ERROR:', err);
+              //console.log('ERROR:', err);
             }
             expect(res.status).toBe(404);
             done();
@@ -31,7 +31,7 @@ describe('Server tests', () => {
         request.post(SERVER_URL + '/api/cars')
           .end((err, res) => {
             if (err) {
-              console.log('ERROR:', err);
+              //console.log('ERROR:', err);
             }
             expect(res.status).toBe(400);
             done();
@@ -42,7 +42,7 @@ describe('Server tests', () => {
         request.get(SERVER_URL + '/api/cars')
         .end((err, res) => {
           expected = res.body[0];
-          console.log('RES.BODY', res.body);
+          //console.log('RES.BODY', res.body);
           let id = res.body[0].id
           request.get(`${SERVER_URL}/api/cars?id=${id}`)
           .end((err, res) => {
@@ -57,6 +57,7 @@ describe('Server tests', () => {
         .set('Content-Type', 'application/json')
         .send(JSON.stringify(newCar))
         .end((err, res) => {
+          console.log('New Car in Index.test', newCar);
           expect(res.body.name).toEqual(newCar.name);
           expect(res.body.make).toEqual(newCar.make);
           expect(res.body.model).toEqual(newCar.model);
