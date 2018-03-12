@@ -34,7 +34,7 @@ To test this app it is recommended you use an http client such as Postman or ins
 
 If you are using HTTPie, in your terminal window, type the following commands, where '3000' would be replaced with your local environment PORT variable, if configured. Commands can only be sent to the api endpoint.
 
-Proper GET requestas will return JSON while improper GET requests will return a 404 not found response.
+Proper GET requests will return JSON while improper GET requests will return a 404 not found response.
 Proper POST requests will return JSON while improper POST requests will return 400 bad request.
 
 ```sh
