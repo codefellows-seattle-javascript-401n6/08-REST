@@ -20,7 +20,7 @@ node.js and npm package manager installed
 
 Run server.js. Some tools you can use to do this include:
 
-```sh
+```
 node server.js
 // for node
 
@@ -28,7 +28,7 @@ nodemon server.js
 // for nodemon you must have the package installed globally
 ```
 
-## Testing:
+### Testing:
 
 To test this app it is recommended you use an http client such as Postman or install the httpie npm package globally.
 
