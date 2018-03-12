@@ -45,7 +45,6 @@ function getPaddles(req, res) {
     }
     if (req.url.query.id) {
         let id = req.url.query.id;
-        console.log('id:', id);
         let storeObj = storage.read(id);
         if (storeObj === undefined) {
             res.writeHead(404, {
@@ -127,7 +126,6 @@ function removePaddles(req, res) {
 
     if (req.url.query.id) {
         let paddle = storage.remove(req.url.query.id)
-        console.log('id', req.url.query.id);
             let id = req.url.query.id;
             res.writeHead(200, {
                 'Content-Type': 'application/json'
@@ -135,7 +133,7 @@ function removePaddles(req, res) {
             res.write('Paddle successfuly removed!');
             res.end();
         } else {
-            res.writeHead(404, {
+            res.writeHead(204, {
                 'Content-Type': 'text/plain'
             });
             res.write('Error. Query was not provided.');
