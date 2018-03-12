@@ -4,10 +4,8 @@ const urlParser = require('url').parse;
 const queryParser = require('querystring').parse;
 
 module.exports = function(req) {
-  // console.log('Req.url', req.url);
-  const urlObject = urlParser(req.url);
-  // console.log('urlObject', urlObject);
+  const urlObj = urlParser(req.url);
   // req.url.query = queryParser(req.url.query);
 
-  return urlObject;
+  return urlObj;
 };

@@ -21,7 +21,6 @@ router.put('/api/paddle', api.updatePaddles);
 router.remove('/api/paddle', api.removePaddles);
 
 const server = http.createServer((req, res) => {
-    console.log('try route');
     return router.tryRoute(req, res);
 });
 

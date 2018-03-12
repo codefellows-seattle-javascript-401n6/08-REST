@@ -1,6 +1,5 @@
 'use strict';
 const request = require('superagent');
-const SERVER_URL = 'http://localhost:3000';
 const storage = require('../lib/storage');
 
 describe('Server tests', () => {

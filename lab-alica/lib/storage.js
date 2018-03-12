@@ -46,7 +46,6 @@ function read(id) {
 
 function update(id, name, bladeSurfaceArea, length) {
     let paddle = read(id);
-    console.log("PADDLE", paddle)
     paddle.name = name || paddle.name;
     paddle.bladeSurfaceArea = bladeSurfaceArea;
     paddle.length = length;
