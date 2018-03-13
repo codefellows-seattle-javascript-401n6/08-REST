@@ -74,18 +74,25 @@ function createPaddles(req, res) {
     parseJSON(req, res)
         .then(req => {
             if (!req.name || !req.bladeSurfaceArea || !req.length) {
-                throw '404 bad request';
-            }
+                throw '400 bad request';
+            };
+            if (req.name !== undefined || req.bladeSurfaceArea !== undefined || req.length !== undefined) {
             let name = req.body.name;
             let bladeSurfaceArea = req.body.bladeSurfaceArea;
             let length = req.body.length;
-
+            }
             let paddle = storage.create(name, bladeSurfaceArea, length);
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
             res.write(JSON.stringify(paddle));
             res.end();
         })
         .catch(err => {
             console.log('Error on post request', err);
+            if(err.includes('400')) {
+                res.writeHead(400, {'Content-Type': 'application/json'});
+            };
             res.end();
             return;
         })
@@ -96,7 +103,6 @@ function updatePaddles(req, res) {
     console.log("update paddles")
     parseJSON(req)
         .then(req => {
-            console.log("GOT JSON", req.body)
             let name = req.body.name;
             let bladeSurfaceArea = req.body.bladeSurfaceArea;
             let length = req.body.length;
