@@ -76,19 +76,17 @@ function createPaddles(req, res) {
             if (!req.name || !req.bladeSurfaceArea || !req.length) {
                 throw '400 bad request';
             };
-            if (req.name !== undefined || req.bladeSurfaceArea !== undefined || req.length !== undefined) {
             let name = req.body.name;
             let bladeSurfaceArea = req.body.bladeSurfaceArea;
             let length = req.body.length;
-            }
+
             let paddle = storage.create(name, bladeSurfaceArea, length);
             res.writeHead(200, {
                 'Content-Type': 'application/json'
             });
             res.write(JSON.stringify(paddle));
             res.end();
-        })
-        .catch(err => {
+        }).catch(err => {
             console.log('Error on post request', err);
             if(err.includes('400')) {
                 res.writeHead(400, {'Content-Type': 'application/json'});
@@ -96,7 +94,7 @@ function createPaddles(req, res) {
             res.end();
             return;
         })
-};
+    };
 
 // PUT
 function updatePaddles(req, res) {
