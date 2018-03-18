@@ -6,29 +6,18 @@ const storage = require('../lib/storage.js');
 // const thePound = require('../model/dog.js');
 
 Router.get('/dogs', (request, response) => {
-  // if (request.query.id) {
-  //   let id = request.query.id;
-  //   storage.get(id)
-  //     .then(dog => {
-  //       response.send(dog);
-  //     });
-  // } else {
-  //   storage.getAll()
-  //     .then(thePound => {
-  //       response.send(thePound);
-  //     });
-  // };
-  storage = storage.getAll();
-
-  let id = request.query.id;
-  if(id) {
-    //get one
-    console.log(`Item with id: ${id}`);
-    response.send('One thing');
+  let name = request.query.name;
+  console.log('NAME: ', name);
+  if(name) {
+  //   //GET ONE DOG
+    let oneDog =  storage.getDog(name);
+    console.log(`Dog with name: ${oneDog}`);
+    response.send(oneDog);
   } else {
-  //get all
-    response.send('All things retrieved');
-    response.send(dogs);
+    //GET ALL DOGS
+    let currentPound = storage.getAll();
+    console.log('curentPound: ', currentPound);
+    response.send(currentPound);
   };
 });
 
