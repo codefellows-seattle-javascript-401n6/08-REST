@@ -6,6 +6,10 @@ class Dog {
     this.age = age;
     this.breed = breed;
   };
+  describe(){
+    const dogInfo = 'Name = ' + this.name + ', Age = ' + this.age + ', Breed = ' + this.breed;
+    console.log('Dog info', dogInfo);
+  };
 };
 
 module.exports = Dog;

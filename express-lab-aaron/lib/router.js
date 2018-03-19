@@ -3,13 +3,12 @@
 const express = require('express');
 const Router = express.Router();
 const storage = require('../lib/storage.js');
-// const thePound = require('../model/dog.js');
 
 Router.get('/dogs', (request, response) => {
   let name = request.query.name;
   console.log('NAME: ', name);
   if(name) {
-  //   //GET ONE DOG
+    //GET ONE DOG
     let oneDog =  storage.getDog(name);
     console.log(`Dog with name: ${oneDog}`);
     response.send(oneDog);
@@ -21,24 +20,22 @@ Router.get('/dogs', (request, response) => {
   };
 });
 
-// Router.put('/', (req, res) => {
-//   let body = req.body;
-//   console.log('PUT queryparams', req.query);
-//   console.log('PUT body', body);
-//   res.send('PUT response');
-// });
+Router.post('/post', (request, response) => {
+  let body = request.body;
+  console.log('POST body', body);
+  let dogObj = storage.createDog(body.name, body.age, body.breed);
+  dogObj.describe();
+  response.send(dogObj);
+});
 
-// Router.post('/', (req, res) => {
-//   let body = req.body;
-//   console.log('POST queryparams', req.query);
-//   console.log('POST body', body);
-//   res.send('POST response');
-// });
+Router.delete('/delete', (request, response) => {
+  let name = request.query.name;
+  console.log('deleting name ',name);
+  if(name) {
+    storage.removeDog(name);
+    console.log('DELETE queryparams', request.query);
+  };
+  response.send(currentPound);
+});
 
-
-// Router.delete('/', (req, res) => {
-//   let id = req.query.id;
-//   console.log('DELETE queryparams', req.query);
-//   res.send('DELETE response');
-// });
 module.exports = Router;

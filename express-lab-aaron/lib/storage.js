@@ -13,9 +13,6 @@ const dog = () => {
   const jb = new Dog('jb', 6, 'beagle');
   const steve = new Dog('steve', 5, 'poodle');
 
-  // thePound[michael.id] = michael;
-  // thePound[jb.id] = jb;
-  // thePound[steve.id] = steve;
   thePound[michael.name] = michael;
   thePound[jb.name] = jb;
   thePound[steve.name] = steve;
@@ -25,7 +22,6 @@ const dog = () => {
 
 const getAll = () => {
   dog();
-  // console.log(Object.keys(thePound));
   console.log('storge.js-POUND: ', thePound);
   return Object.values(thePound);
 };
@@ -37,5 +33,15 @@ const getDog = (name) => {
   return thePound[name];
 };
 
-module.exports = {getDog, getAll, dog};
-// module.exports = {getAll, dog};
+const createDog = (name, age, breed) => {
+  console.log('Started creating dog');
+  const someDog = new Dog(name, age, breed);
+  return someDog;
+};
+
+const removeDog = (name) => {
+  console.log('dog removed from thePound: ', name);
+  thePound.remove(name);
+};
+
+module.exports = {dog, getDog, getAll, createDog, removeDog};
