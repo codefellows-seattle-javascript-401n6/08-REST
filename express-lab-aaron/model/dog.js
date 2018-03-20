@@ -7,8 +7,8 @@ class Dog {
     this.breed = breed;
   };
   describe(){
-    const dogInfo = 'Name = ' + this.name + ', Age = ' + this.age + ', Breed = ' + this.breed;
-    console.log('Dog info', dogInfo);
+    const dogInfo = `Name= ${this.name}, Age= ${this.age}, Breed= ${this.breed}`;
+    console.log('Dog Info: ', dogInfo);
   };
 };
 

@@ -20,7 +20,7 @@ Router.get('/dogs', (request, response) => {
   };
 });
 
-Router.post('/post', (request, response) => {
+Router.post('/dogs', (request, response) => {
   let body = request.body;
   console.log('POST body', body);
   let dogObj = storage.createDog(body.name, body.age, body.breed);
@@ -28,13 +28,14 @@ Router.post('/post', (request, response) => {
   response.send(dogObj);
 });
 
-Router.delete('/delete', (request, response) => {
+Router.delete('/dogs', (request, response) => {
   let name = request.query.name;
   console.log('deleting name ',name);
   if(name) {
     storage.removeDog(name);
     console.log('DELETE queryparams', request.query);
   };
+  let currentPound = storage.getAll();
   response.send(currentPound);
 });
 
