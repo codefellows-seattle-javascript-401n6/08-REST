@@ -5,9 +5,7 @@ const Dog = require('../model/dog.js');
 
 let thePound = {};
 
-const dog = () => {
-  
-  // thePound = [];
+const seed = () => {
   
   const michael = new Dog('michael', 3, 'St-Bernard');
   const jb = new Dog('jb', 6, 'beagle');
@@ -16,14 +14,13 @@ const dog = () => {
   thePound[michael.name] = michael;
   thePound[jb.name] = jb;
   thePound[steve.name] = steve;
-  // thePound.push(michael, jb, steve);
   console.log('KEYS', Object.keys(thePound));
 };
 
 const getAll = () => {
-  dog();
+  // seed();//overwrites the delete function
   console.log('storge.js-POUND: ', thePound);
-  return Object.values(thePound);
+  return Object.values(thePound);//Object.values will return an array / a list []
 };
 
 const getDog = (name) => {
@@ -41,7 +38,7 @@ const createDog = (name, age, breed) => {
 
 const removeDog = (name) => {
   console.log('dog removed from thePound: ', name);
-  thePound.remove(name);
+  delete thePound[name];
 };
 
-module.exports = {dog, getDog, getAll, createDog, removeDog};
+module.exports = {seed, getDog, getAll, createDog, removeDog};
