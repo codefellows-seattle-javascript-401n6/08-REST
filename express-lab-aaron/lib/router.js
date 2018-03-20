@@ -20,12 +20,15 @@ Router.get('/dogs', (request, response) => {
   };
 });
 
-Router.post('/dogs', (request, response) => {
+Router.post('/dogs/add', (request, response) => {
   let body = request.body;
   console.log('POST body', body);
   let dogObj = storage.createDog(body.name, body.age, body.breed);
+  console.log('dogObj: ', dogObj);
   dogObj.describe();
-  response.send(dogObj);
+  // response.send(dogObj);
+  thePound.push(dogObj);
+  response.send(thePound);
 });
 
 Router.delete('/dogs', (request, response) => {

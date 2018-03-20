@@ -33,6 +33,7 @@ const getDog = (name) => {
 const createDog = (name, age, breed) => {
   console.log('Started creating dog');
   const someDog = new Dog(name, age, breed);
+  console.log('new dog created: ', someDog);
   return someDog;
 };
 
