@@ -24,9 +24,13 @@ Router.post('/dogs/add', (request, response) => {
   let body = request.body;
   console.log('POST body', body);
   let dogObj = storage.createDog(body.name, body.age, body.breed);
+  // console.log('POST body', request.params);
+  // let r = request.params;
+  // let dogObj = storage.createDog(r.name, r.age, r.breed);
   console.log('dogObj: ', dogObj);
   dogObj.describe();
-  // response.send(dogObj);
+  response.send(dogObj);
+  let thePound = {};
   thePound.push(dogObj);
   response.send(thePound);
 });
