@@ -14,18 +14,19 @@ const seed = () => {
   thePound[michael.name] = michael;
   thePound[jb.name] = jb;
   thePound[steve.name] = steve;
-  console.log('KEYS', Object.keys(thePound));
+  console.log(`KEYS: ${Object.keys(thePound)}`);
 };
 
 const getAll = () => {
   // seed();//overwrites the delete function
-  console.log('storge.js-POUND: ', thePound);
+  console.log(`storge.js-POUND: ${thePound}`);
   return Object.values(thePound);//Object.values will return an array / a list []
 };
 
 const getDog = (name) => {
   if (!name in thePound) {
     console.log(`Dog not found in thePound with ID of: ${name}`);
+    return undefined;
   };
   return thePound[name];
 };
@@ -33,12 +34,14 @@ const getDog = (name) => {
 const createDog = (name, age, breed) => {
   console.log('Started creating dog');
   const someDog = new Dog(name, age, breed);
-  console.log('new dog created: ', someDog);
+  console.log(`new dog created: ${someDog}`);
+  // return someDog;
+  thePound[someDog.name] = someDog;
   return someDog;
 };
 
 const removeDog = (name) => {
-  console.log('dog removed from thePound: ', name);
+  console.log(`dog removed from thePound: ${name}`);
   delete thePound[name];
 };
 
