@@ -8,7 +8,7 @@ class Dog {
   };
   describe(){
     const dogInfo = `Name= ${this.name}, Age= ${this.age}, Breed= ${this.breed}`;
-    console.log('Dog Info: ', dogInfo);
+    console.log(`Dog Info: ${dogInfo}`);
   };
 };
 
