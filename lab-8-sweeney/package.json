@@ -1,0 +1,20 @@
+{
+  "name": "lab-8-sweeney",
+  "version": "1.0.0",
+  "description": "lab 8 ",
+  "main": "client.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "author": "Caitlin Sweeney",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "uuid": "^3.2.1"
+  }
+}
