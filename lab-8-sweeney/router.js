@@ -12,7 +12,7 @@ class Router {
       POST: {},
       PUT: {},
       DELETE: {}
-    }
+    };
   }
 
   get(path, cb) {

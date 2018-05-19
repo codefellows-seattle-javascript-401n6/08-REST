@@ -16,4 +16,4 @@ function json(req, res) {
   res.end();
 }
 
-module.exports = {text, json}
+module.exports = {text, json};

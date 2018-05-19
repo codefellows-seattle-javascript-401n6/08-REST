@@ -1,5 +1,7 @@
 'use strict';
 
+const uuid = req('uuid/v1');
+
 const storage = require('../lib/storage');
 storage.seed();
 
@@ -11,7 +13,7 @@ function getJelly(req, res) {
     if (jelly[id] === undefined) {
       throw "404 game id not found: " + id;
     }
-    response = jelly[id];
+    response = games[id];
   }
 
   res.writeHead(200, {
@@ -27,7 +29,7 @@ function createJelly(req, res) {
   let yum = req.url.query.yum;
   
   let jelly = storage.createJelly(name, jiggle, yum);
-  return jelly;
+  return game;
 }
 
 function updateJelly(req, res) {

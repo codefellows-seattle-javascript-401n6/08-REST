@@ -7,14 +7,14 @@ const querystring = require('querystring');
 const Router = require('./lib/router');
 
 const simpleAPI = require('./api/simple');
-const gamesAPI = require('./api/games');
+const jellyAPI = require('./api/jelly');
 
 router = new Router();
 router.get('/text', simpleAPI.text);
 router.get('/json', simpleAPI.json);
 
-router.get('/games', gamesAPI.getGames);
-router.post('/games', gamesAPI.createGame);
+router.get('/games', jellyAPI.getJelly);
+router.post('/games', jellyAPI.createJelly);
 
 const server = http.createServer((req, res) => {
   return router.tryRoute(req, res);

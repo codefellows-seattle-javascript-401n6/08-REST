@@ -12,6 +12,8 @@ function mybodyparser() {
   });
 
   req.body.on("error", (error) => {
-    throw error
+    throw error;
   });
 }
+
+module.exports = mybodyparser;

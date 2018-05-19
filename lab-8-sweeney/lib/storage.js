@@ -1,27 +1,27 @@
 'use strict';
 const Jelly = require('../models/jelly.js');
 
-// one object to store all games
+// one object to store all jellies
 let JELLIES = {};
 
-// pre-populate the storage with a few known games.
+// pre-populate the storage with a few known jellies.
 function seed() {
-  // reset all previous games
+  // reset all previous jellies
   JELLIES = {};
 
-  // create and add new already-known games.
+  // create and add new already-known jellies.
   const guava = new Jellies("guava", "firm", 90);
   const raspberry = new Jellies("raspberry", "med-firm", 85);
   const lilikoi = new Jellies("lilikoi", "soft", 100);
 
-  GAMES[guava.id] = guava;
-  GAMES[raspberry.id] = raspberry;
-  GAMES[lilikoi.id] = lilikoi;
+  JELLIES[guava.id] = guava;
+  JELLIES[raspberry.id] = raspberry;
+  JELLIES[lilikoi.id] = lilikoi;
 }
 
 function size() {
-  let games = readAll();
-  return games.length;
+  let jelly = readAll();
+  return jelly.length;
 }
 
 function create(name, jiggle, yum) {
