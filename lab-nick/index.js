@@ -17,28 +17,8 @@ router.get('/json', simpleAPI.json);
 
 router.get('/api/computers', computersAPI.getServers);
 router.post('/api/computers', computersAPI.createServer);
-
-// router.put('/computers', computersAPI.updateComputer);
-// router.put('api/ccomputers', (req, res) => {
-
-// });
-
-// router.delete('/computers', computersAPI.deleteComputer);
-router.del('api/ccomputers', (req, res) => {
-    let computers = storage.readAll();
-    if ('id' in req.url.query) {
-        let id = req.url.query.id;
-        console.log('server id', computers[id]);
-        computers.forEach((server, index) => {
-            if (server.id === id) {
-                storage.splice(index, 1);
-                console.log(computers);
-                res.writeHead(204, { 'Content-Type': 'application/json' });
-                res.end();
-            }
-        });
-    }
-});
+router.put('/api/computers', computersAPI.updateServer);
+router.del('/api/computers', computersAPI.deleteServer);
 
 const server = http.createServer((req, res) => {
     return router.tryRoute(req, res); //Passes all req and res through ./li/router.js

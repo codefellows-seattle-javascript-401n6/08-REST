@@ -64,26 +64,26 @@ function createServer(req, res) {
 };
 
 // router.put('/computers', computersAPI.updateComputer);
-// router.put('api/ccomputers', (req, res) => {
+function updateServer(req, res) {
+ console.log('update function hit!')
+};
 
-// });
+function deleteServer(req, res) {
+    let computers = storage.readAll();
+    if ('id' in req.url.query) {
+        let id = req.url.query.id;
+        console.log('server id', computers[id]);
+        computers.forEach((server, index) => {
+            if (server.id === id) {
+                storage.splice(index, 1);
+                console.log(computers);
+                res.writeHead(204, { 'Content-Type': 'application/json' });
+                res.end();
+            }
+        });
+    }
+};
 
-// router.delete('/computers', computersAPI.deleteComputer);
-// router.delete('api/ccomputers', (req, res) => {
-//     let computers = storage.readAll();
-//     if ('id' in req.url.query) {
-//         let id = req.url.query.id;
-//         console.log('server id', computers[id]);
-//         computers.forEach((server, index) => {
-//             if (server.id === id) {
-//                 storage.splice(index, 1);
-//                 console.log(computers);
-//                 res.writeHead(204, { 'Content-Type': 'application/json' });
-//                 res.end();
-//             }
-//         });
-//     }
-// });
 // function getComputer (req, res) {
 //     res.writeHead(200, {
 //         'content-Type': 'text/plain'
@@ -100,25 +100,25 @@ function createServer(req, res) {
 //     res.end();
 // }
 
-function updateComputer (req, res) {
-    res.writeHead(200, {
-        'content-Type': 'text/plain'
-    });
-    res.write('Nothing here yet');
-    res.end();
-}
+// function updateComputer (req, res) {
+//     res.writeHead(200, {
+//         'content-Type': 'text/plain'
+//     });
+//     res.write('Nothing here yet');
+//     res.end();
+// }
 
-function deleteComputer (req, res) {
-    res.writeHead(200, {
-        'content-Type': 'text/plain'
-    });
-    res.write('Nothing here yet');
-    res.end();
-}
+// function deleteComputer (req, res) {
+//     res.writeHead(200, {
+//         'content-Type': 'text/plain'
+//     });
+//     res.write('Nothing here yet');
+//     res.end();
+// }
 
 module.exports = { 
     getServers, 
     createServer, 
-    updateComputer, 
-    deleteComputer 
+    updateServer, 
+    deleteServer 
 };
