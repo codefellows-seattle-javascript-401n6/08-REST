@@ -5,7 +5,7 @@ const Computer = require('../model/computer.js');
 let computers = {};
 
 function prePopulate() {
-    console.log('pre populate hit');
+    // console.log('pre populate hit');
     computers = {};
                                 //CUP, RAM, HDD
     const server1 = new Computer('x1 Intel Xeon E5-2690', '32GB', '512GB SSD');

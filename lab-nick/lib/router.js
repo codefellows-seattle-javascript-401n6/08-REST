@@ -24,7 +24,7 @@ class Router {
         this.routes.PUT[path] = cb;
     }
 
-    delete(path, cb) {
+    del(path, cb) {
         this.routes.DELETE[path] = cb;
     }
 
@@ -42,7 +42,7 @@ class Router {
         let path = req.url.pathname;
         const route = this.routes[method][path];
         if (!route) {
-            throw `404 Not Found: ${method} ${url}`;
+            throw `404 Not Found: ${method} ${req.url}`;
         }
         route(req, res);
     }
